@@ -1,0 +1,46 @@
+name: Publish Website
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Version
+        default: v1.0.0
+        required: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-18.04
+    container: leolleocompo/devops-hello-world-v2
+    steps:
+      - uses: actions/checkout@v2
+      - name: Verify default branch
+        if: endsWith(github.ref, 'main') == false
+        run: exit -1
+
+      - uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build pages
+        run: yarn run generate
+
+      - name: Changes readme page
+        run: echo "> Personal website ${{ github.event.inputs.version }}." > dist/README.md
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          command: yarn run deploy
+          personal_token: ${{ secrets.PERSONAL_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: ./dist
+
+      - name: Create version tag
+        run: |
+          git tag ${{ github.event.inputs.version }}
+          git push --tags
