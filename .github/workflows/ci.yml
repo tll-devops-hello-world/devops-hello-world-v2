@@ -1,0 +1,29 @@
+name: Nuxt CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    container: leolleocompo/devops-hello-world-v2
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Linter
+        run: yarn run lint
+
+      - name: Build
+        run: yarn run build
+
+      - name: Test
+        run: yarn run test
