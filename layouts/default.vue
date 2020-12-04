@@ -59,4 +59,30 @@ html {
   color: #fff;
   background-color: #35495e;
 }
+
+.button--sysvale {
+  display: inline-block;
+  border-radius: 4px;
+  border: 1px solid #1579f3;
+  color: #074fa6;
+  text-decoration: none;
+  padding: 10px 30px;
+}
+.button--sysvale:hover {
+  color: #fff;
+  background-color: #1579f3;
+}
+.button--lpi {
+  display: inline-block;
+  border-radius: 4px;
+  border: 1px solid #ffcb00;
+  color: #4a4a4a;
+  text-decoration: none;
+  padding: 10px 30px;
+  margin-left: 15px;
+}
+.button--lpi:hover {
+  color: #4a4a4a;
+  background-color: #ffcb00;
+}
 </style>

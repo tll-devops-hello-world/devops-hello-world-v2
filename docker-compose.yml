@@ -1,0 +1,15 @@
+version: '3.3'
+
+services:
+  devops-hello:
+    image: leolleocompo/devops-hello-world-v2
+    container_name: devops-hello
+    working_dir: /home/devops_hello
+    volumes:
+      - ./:/home/devops_hello/
+    ports:
+      - 8000:8000
+    stdin_open: true
+    tty: true
+    entrypoint:
+      - bash
